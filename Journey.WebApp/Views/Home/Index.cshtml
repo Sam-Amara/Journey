@@ -1,0 +1,25 @@
+﻿@using Journey.WebApp.Models.Entities;
+@model List<Traveler>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<p>
+List of Travelers from DB
+    </p>
+<br>
+@foreach (var t in Model)
+{
+    
+<p>
+    @t.FirstName @t.LastName
+</p>
+    <p>
+        @t.Email
+    </p>
+    <p>
+        Number of trips: @t.TravelersTrips.Count
+    </p>
+    <br />
+}
+

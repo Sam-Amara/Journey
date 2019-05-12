@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journey.WebApp", "Journey.WebApp\Journey.WebApp.csproj", "{BB72DE72-8DE5-4E22-B3B5-D226E83C3156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journey.UnitTests", "Journey.UnitTests\Journey.UnitTests.csproj", "{805EB01A-D3A3-47AC-B531-47706C72C2C6}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB72DE72-8DE5-4E22-B3B5-D226E83C3156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB72DE72-8DE5-4E22-B3B5-D226E83C3156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB72DE72-8DE5-4E22-B3B5-D226E83C3156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB72DE72-8DE5-4E22-B3B5-D226E83C3156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{805EB01A-D3A3-47AC-B531-47706C72C2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805EB01A-D3A3-47AC-B531-47706C72C2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805EB01A-D3A3-47AC-B531-47706C72C2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805EB01A-D3A3-47AC-B531-47706C72C2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
