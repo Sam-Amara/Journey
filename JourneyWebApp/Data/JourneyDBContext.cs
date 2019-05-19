@@ -80,6 +80,12 @@ namespace JourneyWebApp.Data
                     .HasMaxLength(40);
             });
 
+            //modelBuilder.Entity<ApplicationUser>()
+            //     .HasOne(t => t.Traveler)
+            //     .WithOne(u => u.User)
+            //     .HasConstraintName("FK_Traveler_AspNetUsers_UserID")
+            //     .IsRequired();
+
             modelBuilder.Entity<Traveler>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -113,11 +119,6 @@ namespace JourneyWebApp.Data
                 entity.Property(e => e.UserId)
                     .HasColumnName("UserID")
                     .HasMaxLength(450);
-
-                entity.HasOne(e => e.User)
-                        .WithOne(t => t.Traveler)
-                        .HasConstraintName("FK_Traveler_AspNetUsers_UserID")
-                        .IsRequired();
             });
 
             modelBuilder.Entity<TravelerAlbum>(entity =>

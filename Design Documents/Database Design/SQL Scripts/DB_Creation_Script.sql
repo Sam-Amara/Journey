@@ -190,8 +190,8 @@ CREATE TABLE Traveler (
 	Hobbies nvarchar(1000),
 	SocialMedia nvarchar(1000),
 	DateCreated datetime NOT NULL,
-	UserID nvarchar(256) unique,
-	Foreign Key (UserID) references AspNetUsers(Email)
+	UserID nvarchar(450) unique,
+	Foreign Key (UserID) references AspNetUsers(Id)
 );
 GO
 

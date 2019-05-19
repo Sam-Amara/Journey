@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JourneyWebApp.Migrations
 {
     [DbContext(typeof(JourneyDBContext))]
-    [Migration("20190519113959_JourneyMigrations")]
+    [Migration("20190519142924_JourneyMigrations")]
     partial class JourneyMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,8 @@ namespace JourneyWebApp.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<long?>("TravelerId");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -88,6 +90,8 @@ namespace JourneyWebApp.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("TravelerId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -158,14 +162,14 @@ namespace JourneyWebApp.Migrations
                         .HasMaxLength(1000);
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnName("UserID")
                         .HasMaxLength(450);
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserID] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Traveler");
                 });
@@ -593,11 +597,19 @@ namespace JourneyWebApp.Migrations
                         .HasConstraintName("FK__AlbumPhot__Photo__151B244E");
                 });
 
+            modelBuilder.Entity("JourneyWebApp.Data.ApplicationUser", b =>
+                {
+                    b.HasOne("JourneyWebApp.Data.Traveler", "Traveler")
+                        .WithMany()
+                        .HasForeignKey("TravelerId");
+                });
+
             modelBuilder.Entity("JourneyWebApp.Data.Traveler", b =>
                 {
                     b.HasOne("JourneyWebApp.Data.ApplicationUser", "User")
-                        .WithOne("Traveler")
-                        .HasForeignKey("JourneyWebApp.Data.Traveler", "UserId");
+                        .WithOne()
+                        .HasForeignKey("JourneyWebApp.Data.Traveler", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("JourneyWebApp.Data.TravelerAlbum", b =>

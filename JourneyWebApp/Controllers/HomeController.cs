@@ -24,8 +24,8 @@ namespace JourneyWebApp.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            var LoggedTraveler = _context.Traveler.Include(t => t.TravelersTrips).FirstOrDefault(t => t.UserId == User.Identity.Name);
-            return View(LoggedTraveler);
+            var LoggedUser = _context.Traveler.Include(t => t.User).FirstOrDefault(t => t.User.UserName == User.Identity.Name);
+            return View(LoggedUser);
         }
 
         public IActionResult About()
