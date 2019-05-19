@@ -29,7 +29,7 @@ namespace JourneyWebApp.Data
         public DateTime DateCreated { get; set; }
         public string UserId { get; set; }
 
-        public IdentityUser User { get; set; }
+        public ApplicationUser User { get; set; }
         public ICollection<TravelerAlbum> TravelerAlbum { get; set; }
         public ICollection<TravelerRelationships> TravelerRelationshipsTravelerId1Navigation { get; set; }
         public ICollection<TravelerRelationships> TravelerRelationshipsTravelerId2Navigation { get; set; }

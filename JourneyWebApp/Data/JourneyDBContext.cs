@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace JourneyWebApp.Data
 {
-    public partial class JourneyDBContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+    public partial class JourneyDBContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public JourneyDBContext()
         {
@@ -114,7 +114,10 @@ namespace JourneyWebApp.Data
                     .HasColumnName("UserID")
                     .HasMaxLength(450);
 
-                entity.HasOne(d => d.User);
+                entity.HasOne(e => e.User)
+                        .WithOne(t => t.Traveler)
+                        .HasConstraintName("FK_Traveler_AspNetUsers_UserID")
+                        .IsRequired();
             });
 
             modelBuilder.Entity<TravelerAlbum>(entity =>

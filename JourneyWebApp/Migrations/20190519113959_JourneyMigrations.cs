@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace JourneyWebApp.Migrations
 {
-    public partial class JouneyDBMigrations : Migration
+    public partial class JourneyMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -228,7 +228,7 @@ namespace JourneyWebApp.Migrations
                         name: "FK_Traveler_AspNetUsers_UserID",
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -499,7 +499,9 @@ namespace JourneyWebApp.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Traveler_UserID",
                 table: "Traveler",
-                column: "UserID");
+                column: "UserID",
+                unique: true,
+                filter: "[UserID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TravelerAlbum_TravelerID",

@@ -37,7 +37,7 @@ namespace JourneyWebApp
             services.AddDbContext<JourneyDBContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("JourneyDB")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<JourneyDBContext>();
 
             services.Configure<IdentityOptions>(options =>

@@ -5,14 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JourneyWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using JourneyWebApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace JourneyWebApp.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly JourneyDBContext _context;
+
+        public HomeController(JourneyDBContext context)
+        {
+            _context = context;
+        }
+
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            var LoggedTraveler = _context.Traveler.Include(t => t.TravelersTrips).FirstOrDefault(t => t.UserId == User.Identity.Name);
+            return View(LoggedTraveler);
         }
 
         public IActionResult About()

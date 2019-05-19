@@ -15,11 +15,11 @@ GO
 INSERT INTO Traveler (FirstName, LastName, phone, DOB, Gender, UserID, DateCreated)
 VALUES
     ('Sam','Amara', '+1 910-797-4201', '1986-09-27', 'M', 
-	  N'520225c8-f527-4b99-b95a-54af9a0f6a7a', getdate()),
+	  'amaramas@my.erau.edu', getdate()),
     ('Sandra','Fellouh', '+1 910-257-0506', '1990-12-18', 'F', 
-	  N'765bc982-719e-4b42-b380-fd9ec5e97c31', getdate()),
+	  'strawbery.s188@outlook.com', getdate()),
     ('Rick','Steves', '+1 425-771-8303', '1955-05-10', 'M', 
-	  N'799137c4-0989-4f5e-9296-153154b4817d', getdate());
+	  'rick@ricksteve.com', getdate());
 GO
 
 INSERT INTO TravelerRelationships (TravelerID1, TravelerID2, Relationship, isFollower, isEmergencyContact, StartDate)

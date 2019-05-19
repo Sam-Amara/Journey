@@ -17,11 +17,23 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+/*
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+*/
+
 CREATE TABLE [dbo].[AspNetUsers](
 	[Id] [nvarchar](450) NOT NULL,
 	[UserName] [nvarchar](256) NULL,
 	[NormalizedUserName] [nvarchar](256) NULL,
-	[Email] [nvarchar](256) NULL,
+	[Email] [nvarchar](256) NULL unique,
 	[NormalizedEmail] [nvarchar](256) NULL,
 	[EmailConfirmed] [bit] NOT NULL,
 	[PasswordHash] [nvarchar](max) NULL,
@@ -178,8 +190,8 @@ CREATE TABLE Traveler (
 	Hobbies nvarchar(1000),
 	SocialMedia nvarchar(1000),
 	DateCreated datetime NOT NULL,
-	UserID nvarchar(450),
-	Foreign Key (UserID) references AspNetUsers(Id)
+	UserID nvarchar(256) unique,
+	Foreign Key (UserID) references AspNetUsers(Email)
 );
 GO
 
