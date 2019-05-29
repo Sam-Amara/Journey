@@ -24,7 +24,7 @@ namespace JourneyWebApp.Views.Home
         [Authorize]
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null)
+            if (id == null || (int)TempData.Peek("TravelerID") != id)
             {
                 return NotFound();
             }

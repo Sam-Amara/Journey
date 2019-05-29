@@ -24,10 +24,15 @@ namespace JourneyWebApp.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            var user = _context.Users.Include(u => u.Traveler).Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-            var traveler = user.Traveler;
+            //var user = _context.Users.Include(u => u.Traveler).Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            var traveler = _context.Traveler.Include(t => t.User)
+                                            .Include(t => t.TravelerRelationshipsTravelerId1Navigation)
+                                            .ThenInclude(r => r.TravelerId2Navigation)
+                                            .Include(t => t.TravelersTrips)
+                                            .ThenInclude(tt => tt.Trip)
+                                            .Where(t => t.User.UserName == User.Identity.Name).FirstOrDefault();
 
-            TempData["User"] = traveler.FirstName ?? user.UserName;
+            TempData["User"] = traveler.FirstName ?? User.Identity.Name;
             TempData["TravelerID"] = traveler.Id;
 
             return View(traveler);
