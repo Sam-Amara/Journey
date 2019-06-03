@@ -8,11 +8,14 @@
 
 <div class="row">
     <div class="col-md-3">
-        <h2>Upcoming trips</h2>
+        <h2>Traveler Cities</h2>
         <ul>
-            <li>Get from DB</li>
-            <li><a asp-area="" asp-controller="Home" asp-action="Plan">Plan</a></li>
-        </ul>
+            @foreach (var c in @Model.TravelersCities.Where(tc => tc.IsCurrent == true))
+            {
+                <li>@c.City.CityName</li>
+            }
+                <li><a asp-area="" asp-controller="TravelerCities" asp-action="Index">Manage</a></li>
+            </ul>
     </div>
     <div class="col-md-3">
         <h2>Past trips</h2>
@@ -30,7 +33,7 @@
         <ul>
             @foreach (var r in Model.TravelerRelationshipsTravelerId1Navigation)
             {
-                <li>@r.TravelerId2Navigation.FirstName <a asp-area="" asp-controller="Home" asp-action="TripDetails" asp-route-id="">details</a></li>
+                <li>@r.TravelerId2Navigation.FirstName <a asp-area="" asp-controller="Home" asp-action="TripDetails" asp-route-id=""e>details</a></li>
             }
             <li><a asp-area="" asp-controller="Home" asp-action="Search">Search</a></li>
         </ul>

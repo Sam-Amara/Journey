@@ -28,6 +28,8 @@ namespace JourneyWebApp.Controllers
             var traveler = _context.Traveler.Include(t => t.User)
                                             .Include(t => t.TravelerRelationshipsTravelerId1Navigation)
                                             .ThenInclude(r => r.TravelerId2Navigation)
+                                            .Include(t => t.TravelersCities)
+                                            .ThenInclude(tc => tc.City)
                                             .Include(t => t.TravelersTrips)
                                             .ThenInclude(tt => tt.Trip)
                                             .Where(t => t.User.UserName == User.Identity.Name).FirstOrDefault();

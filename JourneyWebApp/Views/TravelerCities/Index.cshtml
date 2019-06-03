@@ -1,0 +1,84 @@
+﻿@model IEnumerable<JourneyWebApp.Data.TravelersCities>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TravelerAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCurrent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasLived)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasVisited)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WantVisit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Traveler)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TravelerAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCurrent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasLived)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasVisited)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WantVisit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Traveler.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
