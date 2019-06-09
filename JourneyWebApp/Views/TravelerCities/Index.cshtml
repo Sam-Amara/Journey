@@ -14,10 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
+                @Html.DisplayNameFor(model => model.City)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TravelerAddress)
@@ -35,10 +32,10 @@
                 @Html.DisplayNameFor(model => model.WantVisit)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Traveler)
+                @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th></th>
         </tr>
@@ -47,10 +44,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @Html.DisplayFor(modelItem => item.City.CityName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TravelerAddress)
@@ -68,10 +62,10 @@
                 @Html.DisplayFor(modelItem => item.WantVisit)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City.CityName)
+                @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Traveler.Id)
+                @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
