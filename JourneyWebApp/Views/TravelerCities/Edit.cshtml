@@ -14,8 +14,8 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="TravelerId" value="ViewBag.TravelerId" />
-            <input type="hidden" asp-for="CityId" value="CityId" />
+            <input type="hidden" asp-for="TravelerId" value="@ViewBag.TravelerId" />
+            <input type="hidden" asp-for="CityId" value="@ViewBag.CityId" />
             <div class="form-group">
                 <label asp-for="TravelerAddress" class="control-label"></label>
                 <input asp-for="TravelerAddress" class="form-control" />

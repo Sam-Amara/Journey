@@ -92,8 +92,8 @@ namespace JourneyWebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", travelersCities.CityId);
-            ViewData["TravelerId"] = new SelectList(_context.Traveler, "Id", "Id", travelersCities.TravelerId);
+            ViewData["CityId"] = travelersCities.CityId;
+            ViewData["TravelerId"] = travelersCities.TravelerId;
             return View(travelersCities);
         }
 
@@ -129,8 +129,8 @@ namespace JourneyWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", travelersCities.CityId);
-            ViewData["TravelerId"] = new SelectList(_context.Traveler, "Id", "Id", travelersCities.TravelerId);
+            ViewData["CityId"] = travelersCities.CityId;
+            ViewData["TravelerId"] = travelersCities.TravelerId;
             return View(travelersCities);
         }
 
