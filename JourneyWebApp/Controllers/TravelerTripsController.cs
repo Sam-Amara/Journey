@@ -22,7 +22,10 @@ namespace JourneyWebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var travelerID = (int)TempData.Peek("TravelerID");
-            var journeyDBContext = _context.TravelersTrips.Where(tc => tc.Traveler.Id == travelerID).Include(t => t.Trip);
+            var journeyDBContext = _context.TravelersTrips.Where(tc => tc.Traveler.Id == travelerID)
+                                                          .Include(t => t.Trip)
+                                                          .ThenInclude(tr => tr.TripCities)
+                                                          .ThenInclude(tc => tc.City);
             return View(await journeyDBContext.ToListAsync());
         }
 
@@ -49,8 +52,6 @@ namespace JourneyWebApp.Controllers
         // GET: TravelersTrips/Create
         public IActionResult Create()
         {
-            ViewData["TravelerId"] = new SelectList(_context.Traveler, "Id", "Id");
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripName");
             return View();
         }
 
@@ -59,16 +60,22 @@ namespace JourneyWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TripId,TravelerId")] TravelersTrips travelersTrips)
+        public async Task<IActionResult> Create([Bind("TripId,TravelerId")] TravelersTrips travelersTrips, Trip trip)
         {
             if (ModelState.IsValid)
             {
+                trip.DateCreated = DateTime.Now;
+                _context.Add(trip);
+                await _context.SaveChangesAsync();
+
+                var travelerID = (int)TempData.Peek("TravelerID");
+                travelersTrips.TravelerId = travelerID;
+                travelersTrips.TripId = trip.Id;
+
                 _context.Add(travelersTrips);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TravelerId"] = new SelectList(_context.Traveler, "Id", "Id", travelersTrips.TravelerId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripName", travelersTrips.TripId);
             return View(travelersTrips);
         }
 

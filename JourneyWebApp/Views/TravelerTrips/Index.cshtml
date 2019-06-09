@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string accordion;
 }
 
 <h2>Index</h2>
@@ -14,29 +15,49 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Traveler)
+                @Html.DisplayNameFor(model => model.Trip)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Trip)
+                @Html.DisplayNameFor(model => model.Trip.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trip.EndDate)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Traveler.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trip.TripName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            accordion = $"#accordion{item.TripId}";
+            <tr data-toggle="collapse" data-target="@accordion" class="clickable">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trip.TripName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trip.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trip.EndDate)
+                </td>
+                <td>
+                    <a data-toggle="collapse" data-target="@accordion" class="clickable">Details</a> |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TripId })
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4">
+                    <div id="@accordion.Substring(1, accordion.Length - 1)" class="collapse">
+                        @foreach (var tr in item.Trip.TripCities)
+                        {
+                            <p style="margin-left: 10px;">@tr.City.CityName, @tr.StartDate - @tr.EndDate</p>
+                        }
+                        @Html.ActionLink("Add City", "Add", new { id = item.TripId })
+                    </div>
+                </td>
+            </tr>
+
+        }
     </tbody>
 </table>
