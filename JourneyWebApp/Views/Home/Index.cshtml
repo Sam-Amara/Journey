@@ -22,10 +22,10 @@
         <ul>
             @foreach(var trip in Model.TravelersTrips)
             {
-            <li>@trip.Trip.TripName <a asp-area="" asp-controller="Home" asp-action="TripDetails" asp-route-id="@trip.Trip.Id">details</a></li>
+            <li>@trip.Trip.TripName</li>
             }
 
-            <li><a asp-area="" asp-controller="Home" asp-action="AddTrip">Add</a></li>
+            <li><a asp-area="" asp-controller="TravelerTrips" asp-action="Index">Manange</a></li>
         </ul>
     </div>
     <div class="col-md-3">
@@ -33,9 +33,9 @@
         <ul>
             @foreach (var r in Model.TravelerRelationshipsTravelerId1Navigation)
             {
-                <li>@r.TravelerId2Navigation.FirstName <a asp-area="" asp-controller="Home" asp-action="TripDetails" asp-route-id=""e>details</a></li>
+                <li>@r.TravelerId2Navigation.FirstName</li>
             }
-            <li><a asp-area="" asp-controller="Home" asp-action="Search">Search</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="TravelerRelationships">Manage</a></li>
         </ul>
     </div>
     <div class="col-md-3">
