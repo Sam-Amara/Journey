@@ -325,8 +325,8 @@ namespace JourneyWebApp.Migrations
                     TravelerID1 = table.Column<long>(nullable: false),
                     TravelerID2 = table.Column<long>(nullable: false),
                     Relationship = table.Column<string>(maxLength: 40, nullable: false),
-                    isFollower = table.Column<bool>(nullable: true, defaultValueSql: "((0))"),
-                    isEmergencyContact = table.Column<bool>(nullable: true, defaultValueSql: "((0))"),
+                    isFollower = table.Column<bool>(nullable: false, defaultValueSql: "((0))"),
+                    isEmergencyContact = table.Column<bool>(nullable: false, defaultValueSql: "((0))"),
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
@@ -355,10 +355,10 @@ namespace JourneyWebApp.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     TravelerAddress = table.Column<string>(maxLength: 200, nullable: true),
-                    isCurrent = table.Column<bool>(nullable: true, defaultValueSql: "((0))"),
-                    hasLived = table.Column<bool>(nullable: true, defaultValueSql: "((0))"),
-                    hasVisited = table.Column<bool>(nullable: true, defaultValueSql: "((0))"),
-                    wantVisit = table.Column<bool>(nullable: true, defaultValueSql: "((0))"),
+                    isCurrent = table.Column<bool>(nullable: false, defaultValueSql: "((0))"),
+                    hasLived = table.Column<bool>(nullable: false, defaultValueSql: "((0))"),
+                    hasVisited = table.Column<bool>(nullable: false, defaultValueSql: "((0))"),
+                    wantVisit = table.Column<bool>(nullable: false, defaultValueSql: "((0))"),
                     TravelerID = table.Column<long>(nullable: false),
                     CityID = table.Column<int>(nullable: false)
                 },

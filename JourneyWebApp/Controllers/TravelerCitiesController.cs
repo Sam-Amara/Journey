@@ -63,6 +63,7 @@ namespace JourneyWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 var cityID = await CityFindOrAdd(city);
                 travelersCities.CityId = cityID;
 

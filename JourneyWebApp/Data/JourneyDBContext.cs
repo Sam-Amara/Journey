@@ -178,10 +178,12 @@ namespace JourneyWebApp.Data
 
                 entity.Property(e => e.IsEmergencyContact)
                     .HasColumnName("isEmergencyContact")
+                    .IsRequired()
                     .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.IsFollower)
                     .HasColumnName("isFollower")
+                    .IsRequired()
                     .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Relationship)
@@ -213,14 +215,17 @@ namespace JourneyWebApp.Data
 
                 entity.Property(e => e.HasLived)
                     .HasColumnName("hasLived")
+                    .IsRequired()
                     .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.HasVisited)
                     .HasColumnName("hasVisited")
+                    .IsRequired()
                     .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.IsCurrent)
                     .HasColumnName("isCurrent")
+                    .IsRequired()
                     .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
@@ -231,6 +236,7 @@ namespace JourneyWebApp.Data
 
                 entity.Property(e => e.WantVisit)
                     .HasColumnName("wantVisit")
+                    .IsRequired()
                     .HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.City)
