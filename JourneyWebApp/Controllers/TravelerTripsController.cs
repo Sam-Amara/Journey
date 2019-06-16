@@ -60,7 +60,7 @@ namespace JourneyWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TripId,TravelerId")] TravelersTrips travelersTrips, Trip trip)
+        public async Task<IActionResult> Create(TravelersTrips travelersTrips, Trip trip)
         {
             if (ModelState.IsValid)
             {
@@ -87,13 +87,15 @@ namespace JourneyWebApp.Controllers
                 return NotFound();
             }
 
-            var travelersTrips = await _context.TravelersTrips.FindAsync(id);
+            var travelerID = (int)TempData.Peek("TravelerID");
+
+            var travelersTrips = await _context.TravelersTrips.Where(tc => tc.Traveler.Id == travelerID)
+                                                              .Include(t => t.Trip)
+                                                              .FirstOrDefaultAsync(tt => tt.TripId == id);
             if (travelersTrips == null)
             {
                 return NotFound();
             }
-            ViewData["TravelerId"] = new SelectList(_context.Traveler, "Id", "Id", travelersTrips.TravelerId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripName", travelersTrips.TripId);
             return View(travelersTrips);
         }
 
@@ -102,23 +104,27 @@ namespace JourneyWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("TripId,TravelerId")] TravelersTrips travelersTrips)
+        public async Task<IActionResult> Edit(long id, TravelersTrips tt)
         {
-            if (id != travelersTrips.TripId)
+            
+            
+            if (id != tt.TripId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                var travelerTrip = tt.Trip;
                 try
                 {
-                    _context.Update(travelersTrips);
+                    travelerTrip.Id = id;
+                    _context.Update(travelerTrip);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TravelersTripsExists(travelersTrips.TripId))
+                    if (!TravelersTripsExists(travelerTrip.Id))
                     {
                         return NotFound();
                     }
@@ -129,9 +135,7 @@ namespace JourneyWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TravelerId"] = new SelectList(_context.Traveler, "Id", "Id", travelersTrips.TravelerId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripName", travelersTrips.TripId);
-            return View(travelersTrips);
+            return View(id);
         }
 
         // GET: TravelersTrips/Delete/5

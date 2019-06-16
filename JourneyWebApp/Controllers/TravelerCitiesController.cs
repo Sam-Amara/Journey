@@ -172,13 +172,14 @@ namespace JourneyWebApp.Controllers
 
         private async Task<int> CityFindOrAdd(City cityToFind)
         {
-            var name = cityToFind.CityName.Trim().ToLower();
-            var state = cityToFind.CityState?.Trim().ToLower();
-            var country = cityToFind.Country.Trim().ToLower();
+            var name = cityToFind.CityName.Trim();
+            var state = cityToFind.CityState?.Trim() ?? "";
+            var country = cityToFind.Country.Trim();
 
-            var city = await _context.City.FirstOrDefaultAsync(c => c.CityName.ToLower() == name
-                                                  && (string.IsNullOrEmpty(state) || c.CityState.ToLower() == state)
-                                                  && c.Country.ToLower()   == country);
+            var city = await _context.City.FirstOrDefaultAsync(c => c.CityName.Equals(name, StringComparison.OrdinalIgnoreCase)
+                                                               && ((string.IsNullOrEmpty(c.CityState) && string.IsNullOrEmpty(state)) 
+                                                               || c.CityState.Equals(state, StringComparison.OrdinalIgnoreCase))
+                                                               && c.Country.Equals(country, StringComparison.OrdinalIgnoreCase));
 
             if(city == null)
             {

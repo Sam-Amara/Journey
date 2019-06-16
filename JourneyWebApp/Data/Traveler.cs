@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace JourneyWebApp.Data
 {
@@ -19,13 +20,26 @@ namespace JourneyWebApp.Data
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime? Dob { get; set; }
+
         public string Gender { get; set; }
         public string Email2 { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string AboutMe { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Occupation { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Hobbies { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string SocialMedia { get; set; }
+
+
         public DateTime DateCreated { get; set; }
         public string UserId { get; set; }
 
