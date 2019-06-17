@@ -29,26 +29,6 @@ namespace JourneyWebApp.Controllers
             return View(await journeyDBContext.ToListAsync());
         }
 
-        // GET: TravelersTrips/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var travelersTrips = await _context.TravelersTrips
-                .Include(t => t.Traveler)
-                .Include(t => t.Trip)
-                .FirstOrDefaultAsync(m => m.TripId == id);
-            if (travelersTrips == null)
-            {
-                return NotFound();
-            }
-
-            return View(travelersTrips);
-        }
-
         // GET: TravelersTrips/Create
         public IActionResult Create()
         {

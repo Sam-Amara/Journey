@@ -21,18 +21,7 @@
                 <input asp-for="TravelerAddress" class="form-control" />
                 <span asp-validation-for="TravelerAddress" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="City.CityName" class="control-label"></label>
-                <input asp-for="City.CityName" value="@Model.City?.CityName" class="form-control disabled" />
-            </div>
-            <div class="form-group">
-                <label asp-for="City.CityState" class="control-label"></label>
-                <input asp-for="City.CityState" value="@Model.City?.CityState" class="form-control disabled" />
-            </div>
-            <div class="form-group">
-                <label asp-for="City.Country" class="control-label"></label>
-                <input asp-for="City.Country" value="@Model.City?.Country" class="form-control disabled" />
-            </div>
+            @await Html.PartialAsync("_City", @Model.City)
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
                 <input asp-for="StartDate" class="form-control" />

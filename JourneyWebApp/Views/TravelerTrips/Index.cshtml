@@ -56,7 +56,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @tr.City.CityName
+                                            @Html.ActionLink(tr.City.CityName, "Edit", "TripCities", new { id = tr.Id })
                                         </td>
                                         <td>
                                             @tr.StartDate.ToString("dd-MMM-yy")
@@ -70,7 +70,7 @@
 
                                 <tr>
                                     <td colspan="4">
-                                        @Html.ActionLink("Add City", "Add", new { id = item.TripId })
+                                        @Html.ActionLink("Add City", "Create", "TripCities",  new { id = item.TripId })
                                     </td>
                                 </tr>
                             </tbody>

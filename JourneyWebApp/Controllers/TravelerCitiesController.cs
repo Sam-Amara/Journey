@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JourneyWebApp.Data;
 using Microsoft.AspNetCore.Authorization;
+using JourneyWebApp.Models;
 
 namespace JourneyWebApp.Controllers
 {
@@ -59,12 +60,11 @@ namespace JourneyWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StartDate,EndDate,TravelerAddress,IsCurrent,HasLived,HasVisited,WantVisit")] TravelersCities travelersCities, City city)
+        public async Task<IActionResult> Create(TravelersCities travelersCities, City city)
         {
             if (ModelState.IsValid)
             {
-
-                var cityID = await CityFindOrAdd(city);
+                var cityID = await MyUtility.CityFindOrAdd(_context, city);
                 travelersCities.CityId = cityID;
 
                 var travelerID = (int)TempData.Peek("TravelerID");
@@ -170,31 +170,6 @@ namespace JourneyWebApp.Controllers
             return _context.TravelersCities.Any(e => e.Id == id);
         }
 
-        private async Task<int> CityFindOrAdd(City cityToFind)
-        {
-            var name = cityToFind.CityName.Trim();
-            var state = cityToFind.CityState?.Trim() ?? "";
-            var country = cityToFind.Country.Trim();
-
-            var city = await _context.City.FirstOrDefaultAsync(c => c.CityName.Equals(name, StringComparison.OrdinalIgnoreCase)
-                                                               && ((string.IsNullOrEmpty(c.CityState) && string.IsNullOrEmpty(state)) 
-                                                               || c.CityState.Equals(state, StringComparison.OrdinalIgnoreCase))
-                                                               && c.Country.Equals(country, StringComparison.OrdinalIgnoreCase));
-
-            if(city == null)
-            {
-                city = new City()
-                {
-                    CityName = name,
-                    CityState = state,
-                    Country = country
-                };
-
-                _context.Add(city);
-                await _context.SaveChangesAsync();
-            }
-
-            return city.Id;
-        }
+        
     } 
 }

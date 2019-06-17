@@ -1,4 +1,5 @@
-﻿@model JourneyWebApp.Data.TravelersCities
+﻿@using JourneyWebApp.Data
+@model TravelersCities
 
 @{
     ViewData["Title"] = "Create";
@@ -13,21 +14,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="City.CityName" class="control-label"></label>
-                <input asp-for="City.CityName" class="form-control" />
-                <span asp-validation-for="City.CityName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City.CityState" class="control-label"></label>
-                <input asp-for="City.CityState" class="form-control" />
-                <span asp-validation-for="City.CityState" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City.Country" class="control-label"></label>
-                <input asp-for="City.Country" class="form-control" />
-                <span asp-validation-for="City.Country" class="text-danger"></span>
-            </div>
+            @await Html.PartialAsync("_City", new City())
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
                 <input asp-for="StartDate" class="form-control" />
@@ -45,10 +32,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="IsCurrent" class="control-label"></label>
-                <input asp-for="IsCurrent" class="checkbox-inline"  />
+                <input asp-for="IsCurrent" class="checkbox-inline" />
 
                 <label asp-for="HasLived" class="control-label"></label>
-                <input asp-for="HasLived" class="checkbox-inline"  />
+                <input asp-for="HasLived" class="checkbox-inline" />
 
                 <label asp-for="HasVisited" class="control-label"></label>
                 <input asp-for="HasVisited" class="checkbox-inline" />

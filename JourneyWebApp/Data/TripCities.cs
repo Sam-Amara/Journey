@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace JourneyWebApp.Data
 {
@@ -11,7 +12,11 @@ namespace JourneyWebApp.Data
         }
 
         public long Id { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
         public string Note { get; set; }
         public int CityId { get; set; }
