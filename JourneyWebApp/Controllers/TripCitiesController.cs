@@ -73,5 +73,38 @@ namespace JourneyWebApp.Controllers
             }
             return View(tripCities);
         }
+
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var tripCities = await _context.TripCities.Include(tc => tc.City)
+                                                      .Include(t => t.Trip)
+                                                      .FirstOrDefaultAsync(tc => tc.Id == id);
+
+            if (tripCities == null)
+            {
+                return NotFound();
+            }
+
+            return View(tripCities);
+        }
+
+        // POST: TravelersTrips/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long id)
+        {
+            var tripCities = await _context.TripCities.Include(tc => tc.City)
+                                           .Include(t => t.Trip)
+                                           .FirstOrDefaultAsync(tc => tc.Id == id);
+
+            _context.TripCities.Remove(tripCities);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "TravelerTrips", null);
+        }
     }
 }

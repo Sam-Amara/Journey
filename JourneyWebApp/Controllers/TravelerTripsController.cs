@@ -143,7 +143,11 @@ namespace JourneyWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var travelersTrips = await _context.TravelersTrips.FindAsync(id);
+            var travelersTrips = await _context.TravelersTrips
+                                               .Include(t => t.Traveler)
+                                               .Include(t => t.Trip)
+                                               .FirstOrDefaultAsync(m => m.TripId == id); 
+
             _context.TravelersTrips.Remove(travelersTrips);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

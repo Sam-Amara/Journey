@@ -64,7 +64,9 @@
                                         <td>
                                             @tr.EndDate.ToString("dd-MMM-yy")
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            @Html.ActionLink("Delete", "Delete", "TripCities", new { id = tr.Id })
+                                        </td>
                                     </tr>
                                 }
 
