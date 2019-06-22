@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journey.WebApp", "JourneyWebApp\Journey.WebApp.csproj", "{D46862C4-B58C-4084-ABB1-CB28059BCD03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journey.WebApp", "Journey.WebApp\Journey.WebApp.csproj", "{D46862C4-B58C-4084-ABB1-CB28059BCD03}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journey.UnitTests", "Journey.UnitTests\Journey.UnitTests.csproj", "{87D4A69E-D43F-467B-88A8-C589F6A4E571}"
 EndProject

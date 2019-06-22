@@ -20,7 +20,7 @@ namespace JourneyWebApp.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Create(long? id)
+        public IActionResult Create(long? id)
         {
             if (id == null)
             {
