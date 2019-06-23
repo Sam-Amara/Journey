@@ -5,18 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using JourneyWebApp.Data;
+using Journey.WebApp.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Journey.WebApp.Models;
+using System.Net.Http.Headers;
 
-namespace JourneyWebApp.Views.Home
+namespace Journey.WebApp.Views.Home
 {
     public class TravelerController : Controller
     {
         private readonly JourneyDBContext _context;
+        private HttpClient _httpClient;
+        private Options _options;
 
-        public TravelerController(JourneyDBContext context)
+        public TravelerController(JourneyDBContext context, HttpClient httpClient, Options options)
         {
             _context = context;
+            _httpClient = httpClient;
+            _options = options;
         }
 
 
@@ -29,23 +37,35 @@ namespace JourneyWebApp.Views.Home
                 return NotFound();
             }
 
-            var traveler = await _context.Traveler.FindAsync(id);
+            var traveler = await _context.Traveler.Include(t => t.TravelerAlbum)
+                                                  .ThenInclude(ta => ta.AlbumPhoto)
+                                                  .ThenInclude(ap => ap.Photo)
+                                                  .FirstOrDefaultAsync(t => t.Id == id);
+
             if (traveler == null)
             {
                 return NotFound();
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", traveler.UserId);
-            return View(traveler);
+
+            var profile = new ProfileViewModel
+            {
+                Traveler = traveler,
+            };
+
+            ViewBag.profilePic = await FindOrCreateProfileAlbum(traveler);
+
+            return View(profile);
         }
+
 
         // POST: Traveler/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,FirstName,LastName,Phone,Dob,Gender,Email2,AboutMe,Occupation,Hobbies,SocialMedia,DateCreated,UserId")] Traveler traveler)
+        public async Task<IActionResult> Edit(long id, ProfileViewModel profile)
         {
-            if (id != traveler.Id)
+            if (id != profile.Traveler.Id)
             {
                 return NotFound();
             }
@@ -54,12 +74,24 @@ namespace JourneyWebApp.Views.Home
             {
                 try
                 {
-                    _context.Update(traveler);
+                    var Upload =  profile.Upload;
+                    if (Upload != null && Upload.Length > 0)
+                    {
+                        var imagesUrl = _options.ApiUrl;
+
+                        using (var image = new StreamContent(Upload.OpenReadStream()))
+                        {
+                            image.Headers.ContentType = new MediaTypeHeaderValue(Upload.ContentType);
+                            var response = await _httpClient.PostAsync(imagesUrl, image);
+                        }
+                    }
+
+                    _context.Update(profile.Traveler);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TravelerExists(traveler.Id))
+                    if (!TravelerExists(profile.Traveler.Id))
                     {
                         return NotFound();
                     }
@@ -68,15 +100,42 @@ namespace JourneyWebApp.Views.Home
                         throw;
                     }
                 }
-                //return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", traveler.UserId);
-            return View(traveler);
+
+            return View(profile);
         }
 
         private bool TravelerExists(long id)
         {
             return _context.Traveler.Any(e => e.Id == id);
+        }
+
+        private async Task<string> FindOrCreateProfileAlbum(Traveler traveler)
+        {
+            var profileAlbum = traveler.TravelerAlbum.FirstOrDefault(ta => ta.AlbumName.Equals("Profile Photos"));
+
+            if(profileAlbum == null)
+            {
+                profileAlbum = new TravelerAlbum
+                {
+                    AlbumName = "Profile Photos",
+                    DateCreated = DateTime.Now,
+                    TravelerId = traveler.Id
+                };
+
+                _context.TravelerAlbum.Add(profileAlbum);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                var profilePic = profileAlbum.AlbumPhoto.LastOrDefault()?.Photo;
+
+                if (profilePic != null)
+                    return profilePic.FilePath;
+            }
+
+            return null;
         }
     }
 }

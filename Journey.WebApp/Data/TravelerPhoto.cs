@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace JourneyWebApp.Data
+namespace Journey.WebApp.Data
 {
     public partial class TravelerPhoto
     {

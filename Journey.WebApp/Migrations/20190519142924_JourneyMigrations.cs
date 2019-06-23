@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace JourneyWebApp.Migrations
+namespace Journey.WebApp.Migrations
 {
     public partial class JourneyMigrations : Migration
     {

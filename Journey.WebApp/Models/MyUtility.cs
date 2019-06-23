@@ -1,11 +1,11 @@
-﻿using JourneyWebApp.Data;
+﻿using Journey.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JourneyWebApp.Models
+namespace Journey.WebApp.Models
 {
     public class MyUtility
     {

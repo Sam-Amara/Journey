@@ -1,6 +1,6 @@
 using System;
 
-namespace JourneyWebApp.Models
+namespace Journey.WebApp.Models
 {
     public class ErrorViewModel
     {

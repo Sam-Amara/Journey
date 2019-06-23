@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using JourneyWebApp.Data;
+using Journey.WebApp.Data;
 
-namespace JourneyWebApp.Controllers
+namespace Journey.WebApp.Controllers
 {
     public class TravelerTripsController : Controller
     {

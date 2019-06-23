@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using JourneyWebApp.Data;
+using Journey.WebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Journey.WebApp.Models;
+using System.Net.Http;
 
-namespace JourneyWebApp
+namespace Journey.WebApp
 {
     public class Startup
     {
@@ -82,6 +84,9 @@ namespace JourneyWebApp
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddSingleton<Options>(Configuration.Get<Options>());
+            services.AddSingleton<HttpClient>(new HttpClient());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

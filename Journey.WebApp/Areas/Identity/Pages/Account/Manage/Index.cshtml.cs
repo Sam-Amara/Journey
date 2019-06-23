@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using JourneyWebApp.Data;
+using Journey.WebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace JourneyWebApp.Areas.Identity.Pages.Account.Manage
+namespace Journey.WebApp.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace JourneyWebApp.Data
+namespace Journey.WebApp.Data
 {
     public partial class JourneyDBContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {

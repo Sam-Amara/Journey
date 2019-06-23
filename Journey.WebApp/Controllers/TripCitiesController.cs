@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using JourneyWebApp.Data;
-using JourneyWebApp.Models;
+using Journey.WebApp.Data;
+using Journey.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace JourneyWebApp.Controllers
+namespace Journey.WebApp.Controllers
 {
     [Authorize]
     public class TripCitiesController : Controller

@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using JourneyWebApp.Models;
+using Journey.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using JourneyWebApp.Data;
+using Journey.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace JourneyWebApp.Controllers
+namespace Journey.WebApp.Controllers
 {
     public class HomeController : Controller
     {

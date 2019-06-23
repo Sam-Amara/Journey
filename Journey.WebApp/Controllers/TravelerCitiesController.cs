@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using JourneyWebApp.Data;
+using Journey.WebApp.Data;
 using Microsoft.AspNetCore.Authorization;
-using JourneyWebApp.Models;
+using Journey.WebApp.Models;
 
-namespace JourneyWebApp.Controllers
+namespace Journey.WebApp.Controllers
 {
     [Authorize]
     public class TravelerCitiesController : Controller

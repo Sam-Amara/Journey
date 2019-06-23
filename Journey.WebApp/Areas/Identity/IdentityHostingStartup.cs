@@ -1,5 +1,5 @@
 ﻿using System;
-using JourneyWebApp.Data;
+using Journey.WebApp.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(JourneyWebApp.Areas.Identity.IdentityHostingStartup))]
-namespace JourneyWebApp.Areas.Identity
+[assembly: HostingStartup(typeof(Journey.WebApp.Areas.Identity.IdentityHostingStartup))]
+namespace Journey.WebApp.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

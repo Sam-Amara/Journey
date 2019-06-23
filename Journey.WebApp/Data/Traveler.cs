@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace JourneyWebApp.Data
+namespace Journey.WebApp.Data
 {
     public partial class Traveler 
     {
