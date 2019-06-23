@@ -1,53 +1,49 @@
-﻿@model JourneyWebApp.Data.TripActivities
+﻿@model JourneyWebApp.Data.TripDetails
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.city</h2>
 
-<h4>TripActivities</h4>
+<h4>TripDetails</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <input type="hidden" asp-for="TripCitiesId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Activity" class="control-label"></label>
-                <input asp-for="Activity" class="form-control" />
-                <span asp-validation-for="Activity" class="text-danger"></span>
+                <label asp-for="Accomodation" class="control-label"></label>
+                <input asp-for="Accomodation" class="form-control" />
+                <span asp-validation-for="Accomodation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ActivityDate" class="control-label"></label>
-                <input asp-for="ActivityDate" class="form-control" />
-                <span asp-validation-for="ActivityDate" class="text-danger"></span>
+                <label asp-for="AccomodationDetails" class="control-label"></label>
+                <input asp-for="AccomodationDetails" class="form-control" />
+                <span asp-validation-for="AccomodationDetails" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ActivityType" class="control-label"></label>
-                <input asp-for="ActivityType" class="form-control" />
-                <span asp-validation-for="ActivityType" class="text-danger"></span>
+                <label asp-for="InboundTransportation" class="control-label"></label>
+                <input asp-for="InboundTransportation" class="form-control" />
+                <span asp-validation-for="InboundTransportation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
+                <label asp-for="InboundTransportationDetails" class="control-label"></label>
+                <input asp-for="InboundTransportationDetails" class="form-control" />
+                <span asp-validation-for="InboundTransportationDetails" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Currency" class="control-label"></label>
-                <input asp-for="Currency" class="form-control" />
-                <span asp-validation-for="Currency" class="text-danger"></span>
+                <label asp-for="OutboundTransportation" class="control-label"></label>
+                <input asp-for="OutboundTransportation" class="form-control" />
+                <span asp-validation-for="OutboundTransportation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TripDetailsId" class="control-label"></label>
-                <select asp-for="TripDetailsId" class="form-control" asp-items="ViewBag.TripDetailsId"></select>
-                <span asp-validation-for="TripDetailsId" class="text-danger"></span>
+                <label asp-for="OutboundTransportationDetails" class="control-label"></label>
+                <input asp-for="OutboundTransportationDetails" class="form-control" />
+                <span asp-validation-for="OutboundTransportationDetails" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -57,7 +53,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Details" asp-controller="TripCities" asp-route-id="@Model.TripCitiesId">Back to List</a>
 </div>
 
 @section Scripts {

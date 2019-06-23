@@ -28,7 +28,7 @@ namespace JourneyWebApp.Controllers
             }
 
             var tripCity = new TripCities();
-            
+
             tripCity.TripId = (long)id;
             return View("Edit", tripCity);
         }
@@ -42,7 +42,7 @@ namespace JourneyWebApp.Controllers
                 return NotFound();
             }
 
-            var tripCities = await _context.TripCities.Include(tc=> tc.City).FirstOrDefaultAsync(tc => tc.Id == id);
+            var tripCities = await _context.TripCities.Include(tc => tc.City).FirstOrDefaultAsync(tc => tc.Id == id);
 
             if (tripCities == null)
             {
@@ -117,7 +117,7 @@ namespace JourneyWebApp.Controllers
             return View(tripCity.TripDetails);
         }
 
-            public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
             {
