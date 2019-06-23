@@ -74,7 +74,49 @@ namespace JourneyWebApp.Controllers
             return View(tripCities);
         }
 
-        public async Task<IActionResult> Delete(long? id)
+
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var tripCity = await _context.TripCities.Include(tc => tc.Trip)
+                                                    .ThenInclude(t => t.TripCities)
+                                                    .Include(tc => tc.City)
+                                                    .Include(tc => tc.TripDetails)
+                                                    .ThenInclude(td => td.TripActivities)
+                                                    .FirstOrDefaultAsync(tc => tc.Id == id);
+
+
+            if (tripCity == null)
+            {
+                return NotFound();
+            }
+            ViewBag.trip = tripCity.Trip.TripName;
+            ViewBag.city = tripCity.City.CityName;
+
+            var tripCityIds = tripCity.Trip.TripCities.OrderBy(tc => tc.StartDate).Select(tc => tc.Id).ToArray();
+            var index = Array.IndexOf(tripCityIds, id);
+
+            var indexNext = tripCityIds[index + 1 >= tripCityIds.Length ? 0 : index + 1];
+            var indexPrev = tripCityIds[index - 1 < 0 ? tripCityIds.Length - 1 : index - 1];
+
+            var nextCity = await _context.TripCities.Include(tc => tc.City)
+                                                    .FirstOrDefaultAsync(tc => tc.Id == indexNext);
+            var prevCity = await _context.TripCities.Include(tc => tc.City)
+                                                    .FirstOrDefaultAsync(tc => tc.Id == indexPrev);
+
+            ViewBag.next = indexNext;
+            ViewBag.previous = indexPrev;
+            ViewBag.nextCity = nextCity.City.CityName;
+            ViewBag.prevCity = prevCity.City.CityName;
+
+            return View(tripCity.TripDetails);
+        }
+
+            public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
             {

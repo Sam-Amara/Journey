@@ -11,7 +11,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-hover">
+<table id="trips" class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -55,16 +55,17 @@
                                 @foreach (var tr in item.Trip.TripCities)
                                 {
                                     <tr>
-                                        <td>
+                                        <td width="$(trips).children('tr:first').children('tr:first').width()">
                                             @Html.ActionLink(tr.City.CityName, "Edit", "TripCities", new { id = tr.Id })
                                         </td>
                                         <td>
-                                            @tr.StartDate.ToString("dd-MMM-yy")
+                                            @tr.StartDate.ToString("dd-MMM-yy") 
                                         </td>
                                         <td>
                                             @tr.EndDate.ToString("dd-MMM-yy")
                                         </td>
                                         <td>
+                                            @Html.ActionLink("Details", "Details", "TripCities", new { id = tr.Id }) | 
                                             @Html.ActionLink("Delete", "Delete", "TripCities", new { id = tr.Id })
                                         </td>
                                     </tr>

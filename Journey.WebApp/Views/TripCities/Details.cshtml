@@ -1,0 +1,143 @@
+﻿@model IEnumerable<JourneyWebApp.Data.TripDetails>
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<h3>@ViewBag.trip</h3>
+<h4><a asp-action="Details" asp-route-id="@ViewBag.previous"> @ViewBag.prevCity</a> >> <b>@ViewBag.city</b> >> <a asp-action="Details" asp-route-id="@ViewBag.next">@ViewBag.nextCity</a></h4>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Accomodation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccomodationDetails)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InboundTransportation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InboundTransportationDetails)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OutboundTransportation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OutboundTransportationDetails)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Accomodation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccomodationDetails)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InboundTransportation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InboundTransportationDetails)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OutboundTransportation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OutboundTransportationDetails)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TripActivities.FirstOrDefault().Activity)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TripActivities.FirstOrDefault().ActivityDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TripActivities.FirstOrDefault().ActivityType)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TripActivities.FirstOrDefault().Cost)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TripActivities.FirstOrDefault().Currency)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TripActivities.FirstOrDefault().Note)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var a in item.TripActivities)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => a.Activity)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => a.ActivityDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => a.ActivityType)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => a.Cost)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => a.Currency)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => a.Note)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@a.Id">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@a.Id">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@a.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="7">
+                                        <a asp-action="Create" asp-controller="TripActivities">Add Activity</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <a asp-action="Create" asp-controller="TripDetails">Add Trip Details</a>
+    </p>
+
+
+
+    <div>
+        <a asp-action="Index" asp-controller="TravelerTrips">Back to List</a>
+    </div>
+
+
