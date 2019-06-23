@@ -18,19 +18,10 @@
                     @Html.DisplayNameFor(model => model.Accomodation)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.AccomodationDetails)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.InboundTransportation)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.InboundTransportationDetails)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.OutboundTransportation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OutboundTransportationDetails)
                 </th>
                 <th></th>
             </tr>
@@ -43,19 +34,10 @@
                         @Html.DisplayFor(modelItem => item.Accomodation)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.AccomodationDetails)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.InboundTransportation)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.InboundTransportationDetails)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.OutboundTransportation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OutboundTransportationDetails)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -64,7 +46,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccomodationDetails)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InboundTransportationDetails)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OutboundTransportationDetails)
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -131,7 +125,7 @@
         </tbody>
     </table>
     <p>
-        <a asp-action="Create" asp-controller="TripDetails">Add Trip Details</a>
+        <a asp-action="Create" asp-controller="TripDetails" asp-route-id="@ViewBag.current">Add Trip Details</a>
     </p>
 
 

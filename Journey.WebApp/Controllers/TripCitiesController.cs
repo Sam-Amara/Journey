@@ -96,6 +96,7 @@ namespace JourneyWebApp.Controllers
             }
             ViewBag.trip = tripCity.Trip.TripName;
             ViewBag.city = tripCity.City.CityName;
+            ViewBag.current = tripCity.Id;
 
             var tripCityIds = tripCity.Trip.TripCities.OrderBy(tc => tc.StartDate).Select(tc => tc.Id).ToArray();
             var index = Array.IndexOf(tripCityIds, id);
