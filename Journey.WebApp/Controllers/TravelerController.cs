@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using Journey.WebApp.Models;
 using System.Net.Http.Headers;
+using System.IO;
 
 namespace Journey.WebApp.Views.Home
 {
@@ -82,7 +83,29 @@ namespace Journey.WebApp.Views.Home
                         using (var image = new StreamContent(Upload.OpenReadStream()))
                         {
                             image.Headers.ContentType = new MediaTypeHeaderValue(Upload.ContentType);
+
                             var response = await _httpClient.PostAsync(imagesUrl, image);
+
+                            if(response != null && response.IsSuccessStatusCode)
+                            {
+                                var travelerPhoto = new TravelerPhoto
+                                {
+                                    FilePath = response.Headers.Location.AbsoluteUri,
+                                    DateAdded = response.Headers.Date.Value.LocalDateTime,
+                                };
+
+                                _context.Add(travelerPhoto);
+                                var travelerAlbum = await _context.TravelerAlbum.FirstOrDefaultAsync(ta => ta.TravelerId == profile.Traveler.Id && ta.AlbumName == "Profile Photos");
+
+                                var albumPhoto = new AlbumPhoto
+                                {
+                                    AlbumId = travelerAlbum.Id,
+                                    PhotoId = travelerPhoto.Id,
+                                    SequenceNumber = 0,
+                                    DateAdded = travelerPhoto.DateAdded,
+                                };
+                                _context.Add(albumPhoto);
+                            }
                         }
                     }
 
