@@ -12,7 +12,7 @@ namespace Journey.WebApp.Data
 
         public long Id { get; set; }
         public string PhotoName { get; set; }
-        public byte[] Thumbnail { get; set; }
+        public string Thumbnail { get; set; }
         public string FilePath { get; set; }
         public string Loc { get; set; }
         public DateTime DateAdded { get; set; }

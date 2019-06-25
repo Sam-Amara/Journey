@@ -12,6 +12,7 @@ using System.Net.Http;
 using Journey.WebApp.Models;
 using System.Net.Http.Headers;
 using System.IO;
+using System.Text;
 
 namespace Journey.WebApp.Views.Home
 {
@@ -91,11 +92,18 @@ namespace Journey.WebApp.Views.Home
                                 var travelerPhoto = new TravelerPhoto
                                 {
                                     FilePath = response.Headers.Location.AbsoluteUri,
+                                    Thumbnail = ThumbnailURI(response.Headers.Location.AbsoluteUri),
                                     DateAdded = response.Headers.Date.Value.LocalDateTime,
                                 };
 
                                 _context.Add(travelerPhoto);
-                                var travelerAlbum = await _context.TravelerAlbum.FirstOrDefaultAsync(ta => ta.TravelerId == profile.Traveler.Id && ta.AlbumName == "Profile Photos");
+                                var travelerAlbum = await _context.TravelerAlbum
+                                                                  .FirstOrDefaultAsync(ta => ta.TravelerId == profile.Traveler.Id
+                                                                                          && ta.AlbumName == "Profile Photos");
+
+                                travelerAlbum.Thumbnail = travelerPhoto.Thumbnail;
+
+                                _context.Update(travelerAlbum);
 
                                 var albumPhoto = new AlbumPhoto
                                 {
@@ -129,7 +137,14 @@ namespace Journey.WebApp.Views.Home
             return View(profile);
         }
 
-        private bool TravelerExists(long id)
+        private string ThumbnailURI(string  uri)
+        {
+            var sb = new StringBuilder(uri);
+            sb.Replace("images", "images-thumbnails");
+            return sb.ToString();
+        }
+
+       private bool TravelerExists(long id)
         {
             return _context.Traveler.Any(e => e.Id == id);
         }
@@ -155,7 +170,7 @@ namespace Journey.WebApp.Views.Home
                 var profilePic = profileAlbum.AlbumPhoto.LastOrDefault()?.Photo;
 
                 if (profilePic != null)
-                    return profilePic.FilePath;
+                    return profilePic.Thumbnail;
             }
 
             return null;

@@ -1,0 +1,30 @@
+﻿@model List<Journey.WebApp.Data.TravelerAlbum>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+
+    @if (i % 3 == 0)
+    {
+        @Html.Raw("<div class=\"row\">");
+    }
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <a href="Album/Photos/@Model[i].Id">
+                <img src="@Model[i].Thumbnail" alt="..." style="width:100%; height:200px;">
+                <div class="caption">
+                    <p>@Model[i].AlbumName</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    @if ((i == Model.Count - 1) || (i % 3 == 0 && i > 0))
+    {
+        @Html.Raw("</div>");
+    }
+}

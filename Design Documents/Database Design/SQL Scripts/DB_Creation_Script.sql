@@ -292,7 +292,7 @@ GO
 CREATE TABLE TravelerAlbum (
 	ID bigint NOT NULL identity(1,1) primary key,
 	AlbumName nvarchar(200) NOT NULL,
-	Thumbnail varbinary(max),
+	Thumbnail nvarchar(1000),
 	Descript nvarchar(2000),
 	DateCreated datetime NOT NULL,
 	TripID bigint,
@@ -305,7 +305,7 @@ GO
 CREATE TABLE TravelerPhoto (
 	ID bigint NOT NULL identity(1,1) primary key,
 	PhotoName nvarchar(200),
-	Thumbnail varbinary(max),
+	Thumbnail nvarchar(1000),
 	FilePath nvarchar(1000) NOT NULL unique,
 	Loc nvarchar(100),
 	DateAdded datetime NOT NULL
