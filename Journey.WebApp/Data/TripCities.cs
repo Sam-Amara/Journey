@@ -14,6 +14,7 @@ namespace Journey.WebApp.Data
         public long Id { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         [DataType(DataType.Date)]

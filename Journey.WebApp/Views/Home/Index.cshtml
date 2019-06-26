@@ -4,45 +4,75 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Welcome To Journey @TempData.Peek("User")</h1>
+<div class="jumbotron">
+    <h1 class="display-4">Hi @TempData.Peek("User")</h1>
+    <p class="lead"> Welcome to Journey where you can plan, travel, and share your adventures</p>
+    <hr class="my-4">
+    <input type="text" class="form-control" id="search" placeholder="Search..." style="width:300px">
+</div>
 
 <div class="row">
     <div class="col-md-3">
-        <h2>Traveler Cities</h2>
-        <ul>
-            @foreach (var c in @Model.TravelersCities.Where(tc => tc.IsCurrent == true))
-            {
-                <li>@c.City.CityName</li>
-            }
-                <li><a asp-area="" asp-controller="TravelerCities" asp-action="Index">Manage</a></li>
-            </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Past trips</h2>
-        <ul>
-            @foreach(var trip in Model.TravelersTrips)
-            {
-            <li>@trip.Trip.TripName</li>
-            }
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Your places</h3>
+                <h5>Current city</h5>
+            </div>
+            <div class="panel-body">
 
-            <li><a asp-area="" asp-controller="TravelerTrips" asp-action="Index">Manange</a></li>
-        </ul>
+                @foreach (var c in @Model.TravelersCities.Where(tc => tc.IsCurrent == true))
+                {
+                    <p class="card-text">@c.City.CityName</p>
+                }
+                <a asp-area="" asp-controller="TravelerCities" asp-action="Index" class="btn btn-primary">Manage</a>
+            </div>
+        </div>
     </div>
     <div class="col-md-3">
-        <h2>Albums</h2>
-        <ul>
-            <li>Get from DB</li>
-            <li><a asp-area="" asp-controller="Album" asp-action="Index">Manage</a></li>
-        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Your trips</h3>
+                <h5>Past trips</h5>
+            </div>
+            <div class="panel-body">
+                @foreach (var trip in Model.TravelersTrips)
+                {
+                    <p class="">@trip.Trip.TripName</p>
+                }
+                <a asp-area="" asp-controller="TravelerTrips" asp-action="Index" class="btn btn-primary">Manage</a>
+            </div>
+        </div>
     </div>
     <div class="col-md-3">
-        <h2>Relationships</h2>
-        <ul>
-            @foreach (var r in Model.TravelerRelationshipsTravelerId1Navigation)
-            {
-                <li>@r.TravelerId2Navigation.FirstName</li>
-            }
-            <li><a asp-area="" asp-controller="Home" asp-action="TravelerRelationships">Manage</a></li>
-        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Albums</h3>
+                <h5>Load your pics</h5>
+            </div>
+            <div class="panel-body">
+                
+                @foreach (var album in Model.TravelerAlbum)
+                {
+                    <p class="card-text">@album.AlbumName</p>
+                }
+                <a asp-area="" asp-controller="Album" asp-action="Index" class="btn btn-primary">Manage</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Connections</h3>
+                <h5>Coming soon...</h5>
+            </div>
+            <div class="panel-body">
+                
+                @foreach (var r in Model.TravelerRelationshipsTravelerId1Navigation)
+                {
+                    <p class="card-text">@r.TravelerId2Navigation.FirstName (@r.Relationship)</p>
+                }
+                <a href="#" class="btn btn-primary">Manage</a>
+            </div>
+        </div>
     </div>
 </div>

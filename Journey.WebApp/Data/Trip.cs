@@ -14,14 +14,19 @@ namespace Journey.WebApp.Data
         }
 
         public long Id { get; set; }
+
+        [Display(Name = "Name")]
         public string TripName { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
         public DateTime? StartDate { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "End Date")]
         public DateTime? EndDate { get; set; }
 
+        [Display(Name = "Description")]
         public string Descript { get; set; }
         public DateTime DateCreated { get; set; }
 

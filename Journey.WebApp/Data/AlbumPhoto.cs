@@ -7,10 +7,13 @@ namespace Journey.WebApp.Data
     {
         public long AlbumId { get; set; }
         public long PhotoId { get; set; }
+
         public int SequenceNumber { get; set; }
+
         public DateTime DateAdded { get; set; }
 
         public TravelerAlbum Album { get; set; }
+
         public TravelerPhoto Photo { get; set; }
     }
 }

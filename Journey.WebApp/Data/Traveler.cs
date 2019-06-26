@@ -17,17 +17,27 @@ namespace Journey.WebApp.Data
         }
 
         public long Id { get; set; }
+
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Display(Name = "Phone Number")]
         public string Phone { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
         public DateTime? Dob { get; set; }
 
         public string Gender { get; set; }
+
+        [Display(Name = "Secondary Email")]
         public string Email2 { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Display(Name = "About Me")]
         public string AboutMe { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -37,6 +47,7 @@ namespace Journey.WebApp.Data
         public string Hobbies { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Social Media")]
         public string SocialMedia { get; set; }
 
 
