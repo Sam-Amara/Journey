@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Journey.WebApp.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using Journey.WebApp.Models;
-using System.Net.Http.Headers;
-using System.IO;
-using System.Text;
+
 
 namespace Journey.WebApp.Views.Home
 {
@@ -54,7 +49,10 @@ namespace Journey.WebApp.Views.Home
                 Traveler = traveler,
             };
 
-            ViewBag.profilePic = await FindOrCreateProfileAlbum(traveler);
+            var photo = await FindOrCreateProfileAlbum(traveler);
+
+            ViewBag.profilePicThumb = photo?.Thumbnail;
+            ViewBag.profilePic = photo?.FilePath;
 
             return View(profile);
         }
@@ -76,46 +74,15 @@ namespace Journey.WebApp.Views.Home
             {
                 try
                 {
-                    var Upload =  profile.Upload;
-                    if (Upload != null && Upload.Length > 0)
-                    {
-                        var imagesUrl = _options.ApiUrl;
+                    var travelerAlbum = await _context.TravelerAlbum.FirstOrDefaultAsync(ta => ta.TravelerId == profile.Traveler.Id
+                                                                                  && ta.AlbumName == "Profile Photos");
 
-                        using (var image = new StreamContent(Upload.OpenReadStream()))
-                        {
-                            image.Headers.ContentType = new MediaTypeHeaderValue(Upload.ContentType);
+                    var travelerPhoto = await MyUtility.UploadPhoto(_context, _httpClient, _options, 
+                                                                    profile.Upload, travelerAlbum.Id);
 
-                            var response = await _httpClient.PostAsync(imagesUrl, image);
+                    travelerAlbum.Thumbnail = travelerPhoto.Thumbnail;
 
-                            if(response != null && response.IsSuccessStatusCode)
-                            {
-                                var travelerPhoto = new TravelerPhoto
-                                {
-                                    FilePath = response.Headers.Location.AbsoluteUri,
-                                    Thumbnail = ThumbnailURI(response.Headers.Location.AbsoluteUri),
-                                    DateAdded = response.Headers.Date.Value.LocalDateTime,
-                                };
-
-                                _context.Add(travelerPhoto);
-                                var travelerAlbum = await _context.TravelerAlbum
-                                                                  .FirstOrDefaultAsync(ta => ta.TravelerId == profile.Traveler.Id
-                                                                                          && ta.AlbumName == "Profile Photos");
-
-                                travelerAlbum.Thumbnail = travelerPhoto.Thumbnail;
-
-                                _context.Update(travelerAlbum);
-
-                                var albumPhoto = new AlbumPhoto
-                                {
-                                    AlbumId = travelerAlbum.Id,
-                                    PhotoId = travelerPhoto.Id,
-                                    SequenceNumber = 0,
-                                    DateAdded = travelerPhoto.DateAdded,
-                                };
-                                _context.Add(albumPhoto);
-                            }
-                        }
-                    }
+                    _context.Update(travelerAlbum);
 
                     _context.Update(profile.Traveler);
                     await _context.SaveChangesAsync();
@@ -137,19 +104,12 @@ namespace Journey.WebApp.Views.Home
             return View(profile);
         }
 
-        private string ThumbnailURI(string  uri)
-        {
-            var sb = new StringBuilder(uri);
-            sb.Replace("images", "images-thumbnails");
-            return sb.ToString();
-        }
-
        private bool TravelerExists(long id)
         {
             return _context.Traveler.Any(e => e.Id == id);
         }
 
-        private async Task<string> FindOrCreateProfileAlbum(Traveler traveler)
+        private async Task<TravelerPhoto> FindOrCreateProfileAlbum(Traveler traveler)
         {
             var profileAlbum = traveler.TravelerAlbum.FirstOrDefault(ta => ta.AlbumName.Equals("Profile Photos"));
 
@@ -170,7 +130,7 @@ namespace Journey.WebApp.Views.Home
                 var profilePic = profileAlbum.AlbumPhoto.LastOrDefault()?.Photo;
 
                 if (profilePic != null)
-                    return profilePic.Thumbnail;
+                    return profilePic;
             }
 
             return null;

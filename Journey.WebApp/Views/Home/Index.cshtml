@@ -29,6 +29,13 @@
         </ul>
     </div>
     <div class="col-md-3">
+        <h2>Albums</h2>
+        <ul>
+            <li>Get from DB</li>
+            <li><a asp-area="" asp-controller="Album" asp-action="Index">Manage</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3">
         <h2>Relationships</h2>
         <ul>
             @foreach (var r in Model.TravelerRelationshipsTravelerId1Navigation)
@@ -36,13 +43,6 @@
                 <li>@r.TravelerId2Navigation.FirstName</li>
             }
             <li><a asp-area="" asp-controller="Home" asp-action="TravelerRelationships">Manage</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Albums</h2>
-        <ul>
-            <li>Get from DB</li>
-            <li><a asp-area="" asp-controller="Album" asp-action="Index">Create</a></li>
         </ul>
     </div>
 </div>

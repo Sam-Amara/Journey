@@ -1,0 +1,29 @@
+﻿@model Journey.WebApp.Models.PhotoViewModel
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Photos" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AlbumPhoto.Photo.PhotoName" class="control-label"></label>
+                <input asp-for="AlbumPhoto.Photo.PhotoName" class="form-control" />
+                <span asp-validation-for="AlbumPhoto.Photo.PhotoName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Choose image</label>
+                <input type="file" class="form-control" asp-for="@Model.Upload">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AlbumPhoto.Photo.Loc" class="control-label"></label>
+                <input asp-for="AlbumPhoto.Photo.Loc" class="form-control" />
+                <span asp-validation-for="AlbumPhoto.Photo.Loc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Upload" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

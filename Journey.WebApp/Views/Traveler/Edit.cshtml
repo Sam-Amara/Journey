@@ -72,11 +72,11 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <img src="@(ViewBag.profilePic ?? "../../images/profile-placeholder.png")" class="rounded float-right" alt="Profile Pic" style="width:200px; height:200px;">
+                <img src="@(ViewBag.profilePicThumb ?? "../../ images / profile - placeholder.png")" onError="imgError(this);" class="rounded float-right" alt="Profile Pic" style="width:200px; height:200px;">
             </div>
             <div class="form-group">
-                <input type="file" class="" asp-for="@Model.Upload">
-                <label class="label">Choose image</label>
+                <label class="control-label">Choose image</label>
+                <input type="file" class="form-control" asp-for="@Model.Upload">
             </div>
         </div>
     </form>
@@ -85,3 +85,11 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    function imgError(image) {
+        image.onerror = "";
+        image.src = "@ViewBag.profilePic";
+        return true;
+    }
+</script>

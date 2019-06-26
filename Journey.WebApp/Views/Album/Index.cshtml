@@ -4,27 +4,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Albums</h2>
 
-@for (int i = 0; i < Model.Count; i++)
-{
 
-    @if (i % 3 == 0)
-    {
-        @Html.Raw("<div class=\"row\">");
-    }
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <a href="Album/Photos/@Model[i].Id">
-                <img src="@Model[i].Thumbnail" alt="..." style="width:100%; height:200px;">
-                <div class="caption">
-                    <p>@Model[i].AlbumName</p>
-                </div>
-            </a>
-        </div>
+<p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Add Album
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        @await Html.PartialAsync("_Album", new Journey.WebApp.Data.TravelerAlbum())
     </div>
-    @if ((i == Model.Count - 1) || (i % 3 == 0 && i > 0))
+</div>
+
+<div class="row">
+    @for (int i = 0; i < Model.Count; i++)
     {
-        @Html.Raw("</div>");
+        <div class="col-md-3">
+            <div class="thumbnail">
+                <a href="Album/Photos/@Model[i].Id">
+                    <img src="@Model[i].Thumbnail" alt="..." style="width:100%; height:200px;">
+                    <div class="caption">
+                        <p>@Model[i].AlbumName</p>
+                    </div>
+                </a>
+            </div>
+        </div>
     }
-}
+</div>
